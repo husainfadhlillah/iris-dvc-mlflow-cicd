@@ -1,0 +1,34 @@
+stages:
+  get_data:
+    cmd: python src/get_data.py
+    deps:
+      - src/get_data.py
+    outs:
+      - data/raw/iris.csv
+
+  split_data:
+    cmd: python src/split_data.py
+    deps:
+      - src/split_data.py
+      - data/raw/iris.csv
+      - params.yaml
+    params:
+      - split_data
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+
+  run_experiment:
+    cmd: python src/run_experiment.py
+    deps:
+      - src/run_experiment.py
+      - data/processed/train.csv
+      - data/processed/test.csv
+      - params.yaml
+    params:
+      - train_model
+    outs:
+      - models/model.joblib
+    metrics:
+      - reports/metrics.json:
+          cache: false
