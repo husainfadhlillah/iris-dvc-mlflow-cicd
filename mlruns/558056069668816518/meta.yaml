@@ -1,0 +1,6 @@
+artifact_location: file:///D:/My%20GitHub/iris-dvc-mlflow-cicd/mlruns/558056069668816518
+creation_time: 1764553009218
+experiment_id: '558056069668816518'
+last_update_time: 1764553009218
+lifecycle_stage: active
+name: Iris_Classification_RF

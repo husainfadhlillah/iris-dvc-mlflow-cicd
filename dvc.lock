@@ -1,0 +1,77 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/get_data.py
+    deps:
+    - path: src/get_data.py
+      hash: md5
+      md5: ad04a1bcd1fe9d844cbe8319a3083a79
+      size: 659
+    outs:
+    - path: data/raw/iris.csv
+      hash: md5
+      md5: 21d441a28bce4417276097df955afc50
+      size: 2928
+  split_data:
+    cmd: python src/split_data.py
+    deps:
+    - path: data/raw/iris.csv
+      hash: md5
+      md5: 21d441a28bce4417276097df955afc50
+      size: 2928
+    - path: params.yaml
+      hash: md5
+      md5: ed90905788d242a466d39daced3a85cd
+      size: 125
+    - path: src/split_data.py
+      hash: md5
+      md5: 400e2774f16f29238a1c964ff96a2db3
+      size: 1050
+    params:
+      params.yaml:
+        split_data:
+          test_size: 0.2
+          random_state: 42
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: f62eb59ab49d79c725d3982a6309f855
+      size: 648
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 2471b196482f8756104a193f2497d1e5
+      size: 2358
+  run_experiment:
+    cmd: python src/run_experiment.py
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: f62eb59ab49d79c725d3982a6309f855
+      size: 648
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 2471b196482f8756104a193f2497d1e5
+      size: 2358
+    - path: params.yaml
+      hash: md5
+      md5: ed90905788d242a466d39daced3a85cd
+      size: 125
+    - path: src/run_experiment.py
+      hash: md5
+      md5: 7bfe5989b24b9b17e0e1521b2678ad0c
+      size: 2856
+    params:
+      params.yaml:
+        train_model:
+          n_estimators: 100
+          max_depth: 10
+          random_state: 42
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: 0b545ac752b002bd842baf888a8d2b5f
+      size: 168033
+    - path: reports/metrics.json
+      hash: md5
+      md5: 0db126458f38e7cf5dcee0650dd7db7c
+      size: 48
