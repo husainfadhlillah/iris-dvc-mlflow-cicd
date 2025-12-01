@@ -25,7 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8
       - name: Run linter with flake8
-        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=venv
 
   # Nama pekerjaan kedua: 'build-and-push-docker' (CD)
   build-and-push-docker:
