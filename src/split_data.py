@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from pathlib import Path
 import yaml
 
+
 def split_data():
     """Membagi data mentah menjadi set latih dan uji."""
     print("Memulai proses split_data...")
@@ -21,16 +22,17 @@ def split_data():
 
     # Bagi data
     train_df, test_df = train_test_split(
-        df, 
-        test_size=test_size, 
-        random_state=random_state, 
-        stratify=df['target'] # Penting untuk klasifikasi
+        df,
+        test_size=test_size,
+        random_state=random_state,
+        stratify=df['target']
     )
 
     # Simpan
     train_df.to_csv("data/processed/train.csv", index=False)
     test_df.to_csv("data/processed/test.csv", index=False)
     print("Data latih dan uji berhasil disimpan di data/processed/")
+
 
 if __name__ == "__main__":
     split_data()
